@@ -34,8 +34,8 @@ plt.show(block=True)
 table = create_table(forecast, df_pr, 'C:\\Users\\yusup\\OneDrive\\Рабочий стол\\sales_stock\\Data\\Proccesed\\table.csv')
 
 # Визуализация таблицы
-#graph_forecast = plot_table(table)
-#print(type(graph_forecast))
+graph_forecast = plot_table(table)
+print(type(graph_forecast))
 
 #%%
 

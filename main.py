@@ -3,6 +3,11 @@ import pandas as pd
 import warnings
 
 from matplotlib import pyplot as plt
+import gdown # Импорт библиотеки для загрузки файла
+
+# экспорт файла на гугл диск
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
 
 
 # Импорт из scr с указанием правильного пути и имя скрипта
@@ -13,6 +18,12 @@ from scr.Visualization.table import create_table
 from scr.Visualization.visualisation import plot_model, plot_table
 
 # Загрузка и предобработка данных
+file_id = '1aU0M0sBQ55vhKxXJaaD8B9Bu_O60s5zG'
+url = f'https://drive.google.com/uc?id={file_id}'
+
+# Загрузка файла
+gdown.download(url, 'C:\\Users\\yusup\\OneDrive\\Рабочий стол\\sales_stock\\Data\\raw\\PE.xlsx', quiet=False)
+
 data_prep = DataPreparation('C:\\Users\\yusup\\OneDrive\\Рабочий стол\\sales_stock\\Data\\raw\\PE.xlsx')
 grouped_sales = data_prep.load_data()
 df_pr = data_prep.remove_anomalies(grouped_sales)
@@ -36,6 +47,26 @@ table = create_table(forecast, df_pr, 'C:\\Users\\yusup\\OneDrive\\Рабочи�
 # Визуализация таблицы
 graph_forecast = plot_table(table)
 print(type(graph_forecast))
+
+# экспорт файла на гугл диск
+# Аутентификация и создание объекта GoogleDrive
+gauth = GoogleAuth()
+gauth.LoadCredentialsFile('C:\\Users\\yusup\\Downloads\\salesstock-2024-dcb3fe18d656.json')
+drive = GoogleDrive(gauth)
+
+# Создание объекта GoogleDriveFile
+file = drive.CreateFile({'title': 'table.csv',
+                         'parents': [{'id': '1Bf-9mOyGWh-BW_CJkLiGVUQh2cFm9Yz7'}]})
+
+# Загрузка файла на Google Drive
+file.SetContentFile('C:\\Users\\yusup\\OneDrive\\Рабочий стол\\sales_stock\\Data\\Proccesed\\table.csv')
+file.Upload()
+print("Файл успешно загружен на Google Диск!")
+
+
+#%%
+
+#%%
 
 #%%
 

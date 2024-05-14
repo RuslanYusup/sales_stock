@@ -50,18 +50,18 @@ print(type(graph_forecast))
 
 # экспорт файла на гугл диск
 # Аутентификация и создание объекта GoogleDrive
-gauth = GoogleAuth()
-gauth.LoadCredentialsFile('C:\\Users\\yusup\\Downloads\\')
-drive = GoogleDrive(gauth)
+#gauth = GoogleAuth()
+#gauth.LoadCredentialsFile('C:\\Users\\yusup\\Downloads\\')
+#drive = GoogleDrive(gauth)
 
 # Создание объекта GoogleDriveFile
-file = drive.CreateFile({'title': 'table.csv',
+#file = drive.CreateFile({'title': 'table.csv',
                          'parents': [{'id': }]})
 
 # Загрузка файла на Google Drive
-file.SetContentFile('C:\\Users\\yusup\\OneDrive\\Рабочий стол\\sales_stock\\Data\\Proccesed\\table.csv')
-file.Upload()
-print("Файл успешно загружен на Google Диск!")
+#file.SetContentFile('C:\\Users\\yusup\\OneDrive\\Рабочий стол\\sales_stock\\Data\\Proccesed\\table.csv')
+#file.Upload()
+#print("Файл успешно загружен на Google Диск!")
 
 
 #%%

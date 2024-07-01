@@ -94,7 +94,7 @@ print(type(graph_forecast))
 # # Предоставление разрешений на чтение
 # os.chmod(file_path, 0o444)
 #
-# # Здесь начинается ваш оригинальный код
+#
 # os.chdir('D:\\project\\sales_stock\\')
 #
 # gauth = GoogleAuth('settings.yaml')
@@ -126,7 +126,6 @@ os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'D:\project\sales_stock\client_s
 
 os.chmod(r'D:\project\sales_stock\client_secret.json', 0o666)
 
-# Здесь начинается ваш оригинальный код
 os.chdir('D:\\project\\sales_stock\\')
 
 gauth = GoogleAuth('settings.yaml')

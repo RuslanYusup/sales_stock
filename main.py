@@ -87,12 +87,19 @@ print(type(graph_forecast))
 #     log_text = ', '.join(map(str, row))
 #     add_log_in_google(service, '107QRRuZQirWomm01WRs9Qqzo0weLKtBKTnsSQUU-EY4', log_text)
 
+
+# Путь к файлу
+# file_path = r'D:\project\sales_stock\client_secret.json'
+#
+# # Предоставление разрешений на чтение
+# os.chmod(file_path, 0o444)
+#
+# # Здесь начинается ваш оригинальный код
 # os.chdir('D:\\project\\sales_stock\\')
 #
 # gauth = GoogleAuth('settings.yaml')
 # # открываем окно авторизации
 # gauth.LocalWebserverAuth()
-#
 #
 # drive = GoogleDrive(gauth)
 #
@@ -113,27 +120,30 @@ print(type(graph_forecast))
 # # Запись данных в рабочий лист
 # set_with_dataframe(worksheet, table)
 
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
-from gspread_dataframe import set_with_dataframe
-import yaml
 
-# Загрузка данных из файла table.csv в DataFrame
-table = pd.read_csv('D:\\project\\sales_stock\\Data\\Proccesed\\table.csv')
+# Устанавливаем переменную окружения для указания пути к файлу с учетными данными
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'D:\project\sales_stock\client_secret.json'
 
-# Загрузка настроек из файла settings.yaml
-with open('D:\\project\\sales_stock\\settings.yaml', 'r') as f:
-    settings = yaml.safe_load(f)
+os.chmod(r'D:\project\sales_stock\client_secret.json', 0o666)
 
-# Получение учетных данных для авторизации в Google Drive
-credentials = ServiceAccountCredentials.from_json_keyfile_name(settings['client_config_file'],
-                                                               ['https://www.googleapis.com/auth/spreadsheets',
-                                                                'https://www.googleapis.com/auth/drive'])
+# Здесь начинается ваш оригинальный код
+os.chdir('D:\\project\\sales_stock\\')
 
-# Создание объекта service для работы с Google Sheets
-gc = gspread.authorize(credentials)
+gauth = GoogleAuth('settings.yaml')
+# открываем окно авторизации
+gauth.LocalWebserverAuth()
 
-# Открытие таблицы Google Sheets
+drive = GoogleDrive(gauth)
+
+# Путь к папке 'Proccesed'
+processed_folder_path = 'D:\\project\\sales_stock\\Data\\Proccesed\\'
+
+# Получение списка всех файлов в папке 'Proccesed'
+files_in_processed = os.listdir(processed_folder_path)
+
+# Запись из папки 'Proccesed' в Google Drive
+# Авторизация и открытие таблицы
+gc = gspread.service_account(filename=os.environ['GOOGLE_APPLICATION_CREDENTIALS'])
 spreadsheet = gc.open_by_url('https://docs.google.com/spreadsheets/d/107QRRuZQirWomm01WRs9Qqzo0weLKtBKTnsSQUU-EY4/edit?gid=2060637574')
 
 # Получение рабочего листа
@@ -141,9 +151,6 @@ worksheet = spreadsheet.get_worksheet(0)
 
 # Запись данных в рабочий лист
 set_with_dataframe(worksheet, table)
-
-
-
 
 
 

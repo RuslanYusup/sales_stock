@@ -1,0 +1,5 @@
+*.csv
+client_secret.json
+setting.yaml
+Data/*.*
+
